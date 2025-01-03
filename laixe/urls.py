@@ -14,18 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from annoying.functions import get_config
 from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("", include("home.urls")),
+    path("course/", include("course.urls")),
 ] + debug_toolbar_urls()
 
 if get_config("DEBUG"):
-    urlpatterns.append(
-        path("__reload__/", include("django_browser_reload.urls"))
-    )
+    urlpatterns.append(path("__reload__/", include("django_browser_reload.urls")))

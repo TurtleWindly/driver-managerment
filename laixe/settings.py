@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "theme",
     "accounts",
     "home",
+    "course",
 ]
 
 MIDDLEWARE = [
