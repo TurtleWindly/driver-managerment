@@ -1,0 +1,48 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% block title %}
+
+      {% endblock %}
+      {% block title_suffix %}
+
+      {% endblock %}
+    </title>
+    {% comment %} TODO: Use correct favicon {% endcomment %}
+    {% comment %} <link rel="icon" type="image/x-icon" href="{% static 'base/images/favicon.ico' %}"> {% endcomment %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {# Global stylesheets #}
+    {% tailwind_css %}
+    {% block extra_css %}
+      {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+  </head>
+
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="{% block body_class %}
+
+    {% endblock %}">
+    {% comment %} {% include 'home/includes/header.html' %} {% endcomment %}
+
+    <section>
+      <main id="main">
+        {% block content %}
+
+        {% endblock %}
+      </main>
+    </section>
+
+    {% comment %} {% include 'includes/footer.html' %} {% endcomment %}
+
+    {# Global javascript #}
+    <script type="text/javascript" src="{% static 'base/js/base.js' %}"></script>
+
+    {% block extra_js %}
+      {# Override this in templates to add extra javascript #}
+    {% endblock %}
+  </body>
+</html>
