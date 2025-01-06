@@ -30,6 +30,9 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, verbose_name="Giới tính")
     phone = PhoneNumberField(blank=True, verbose_name="SĐT")
 
+    def __str__(self):
+        return "Thông tin thêm"
+
     class Meta:
         verbose_name = "Hồ sơ người dùng"
         verbose_name_plural = "Các hồ sơ người dùng"
