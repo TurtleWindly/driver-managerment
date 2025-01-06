@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from base.utils import vn_currency
+
 from .models import (
     License,
     DriverLicense,
@@ -16,7 +18,11 @@ from .models import (
 
 @admin.register(License)
 class LicenseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "formated_tuition"]
+
+    @admin.display(description="Học phí")
+    def formated_tuition(self, obj):
+        return vn_currency(obj.tuition)
 
 
 @admin.register(DriverLicense)
