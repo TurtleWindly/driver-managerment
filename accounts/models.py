@@ -2,6 +2,7 @@ from annoying.fields import AutoOneToOneField
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -25,8 +26,9 @@ class UserProfile(models.Model):
         verbose_name="CCCD"
     )
     address = models.CharField(max_length=150, blank=True, verbose_name="Địa chỉ")
+    dob = models.DateField(blank=True, null=True, verbose_name="Ngày sinh")
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, verbose_name="Giới tính")
-    dob = models.DateField(blank=True, verbose_name="Ngày sinh")
+    phone = PhoneNumberField(blank=True, verbose_name="SĐT")
 
     class Meta:
         verbose_name = "Hồ sơ người dùng"

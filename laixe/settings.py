@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_htmx",
     "jazzmin",
+    "phonenumber_field",
     "tailwind",
     # Core app
     "django.contrib.admin",
@@ -102,7 +103,7 @@ WSGI_APPLICATION = "laixe.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": PROJECT_DIR + "db.sqlite3",
+        "NAME": PROJECT_DIR + "/" + "db.sqlite3",
     }
 }
 
@@ -185,5 +186,9 @@ JAZZMIN_SETTINGS = {
     "site_logo": "base/images/site-logo.png",
 }
 
+# Tailwind
 TAILWIND_APP_NAME = "theme"
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+# Django phone numbers
+PHONENUMBER_DEFAULT_REGION = "VN"
