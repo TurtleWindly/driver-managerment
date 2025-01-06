@@ -2,39 +2,45 @@
 
 {% block content %}
 
-<!-- Left: Image -->
-<div class="w-1/2 h-screen hidden lg:block">
-  <img src="{% static 'accounts/img/hungvuong.jpg' %}" alt="Placeholder Image" class="object-cover w-full h-full brightness-50">
-</div>
-<!-- Right: Login Form -->
-<div class= "lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-  <h1 class="text-2xl font-semibold mb-4">Tra cứu lái xe</h1>
-  <form action="{% url 'accounts:login' %}?next={{ request.GET.next }}" method="POST">
-    {% csrf_token %}
-    <!-- Username Input -->
-    <div class="mb-4" "bg-sky-100">
-      {% comment %} <label for="username" class="block text-gray-600">Tên đăng nhập</label> {% endcomment %}
-      <label for="username" class="block text-gray-600">{{ form.username.label }}</label>
-      <input type="text" id="username" name="{{ form.username.name }}" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
-    </div>
-    <!-- Password Input -->
-    <div class="mb-4">
-      <label for="password" class="block text-gray-800">{{ form.password.label }}</label>
-      <input type="password" id="password" name="{{ form.password.name }}" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
-    </div>
-    <!-- Remember Me Checkbox -->
-    <div class="mb-4 flex items-center">
-      <input type="checkbox" id="remember_me" name="{{ form.remember_me.name }}" class="text-blue-500">
-      <label for="remember_me" class="text-green-900 ml-2">{{ form.remember_me.label }}</label>
-    </div>
-    <div class="mb-4">
-        {% if form.errors %}
-        <p class="text-red-500 font-bold">Tên đăng nhập hoặc mật khẩu không đúng</p>
-        {% endif %}
-    </div>
-    <!-- Login Button -->
-    <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-md py-2 px-4 w-full">Đăng nhập</button>
-  </form>
-</div>
+<div class="bg-sky-100 flex justify-center items-center h-screen">
+  <!-- Left: Image -->
+  <div class="w-1/2 h-screen hidden lg:block">
+    <img src="{% static 'accounts/images/login-bg.png' %}" alt="Placeholder Image" class="object-cover w-full h-full brightness-50">
+  </div>
+  <!-- Right: Login Form -->
+  <div class= "lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
+    <h1 class="text-2xl font-semibold mb-4">Tra cứu lái xe</h1>
+    {% if next %}
+      <div class="mb-4">
+          <p class="text-red-500 text-sm italic">Bạn không có quyền đăng nhập vào trang này. Vui lòng đăng nhập bằng một tài khoản khác</p>
+      </div>
+    {% endif %}
+    <form action="{% url 'accounts:login' %}?next={{ request.GET.next }}" method="POST">
+      {% csrf_token %}
+      <!-- Username Input -->
+      <div class="mb-4" "bg-sky-100">
+        {% comment %} <label for="username" class="block text-gray-600">Tên đăng nhập</label> {% endcomment %}
+        <label for="username" class="block text-gray-600">{{ form.username.label }}</label>
+        <input type="text" id="username" name="{{ form.username.name }}" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+      </div>
+      <!-- Password Input -->
+      <div class="mb-4">
+        <label for="password" class="block text-gray-800">{{ form.password.label }}</label>
+        <input type="password" id="password" name="{{ form.password.name }}" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+      </div>
+      <!-- Remember Me Checkbox -->
+      <div class="mb-4 flex items-center">
+        <input type="checkbox" id="remember_me" name="{{ form.remember_me.name }}" class="text-blue-500">
+        <label for="remember_me" class="text-green-900 ml-2">{{ form.remember_me.label }}</label>
+      </div>
+      <div class="mb-4">
+          {% if form.errors %}
+          <p class="text-red-500 font-bold">Tên đăng nhập hoặc mật khẩu không đúng</p>
+          {% endif %}
+      </div>
+      <!-- Login Button -->
+      <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-md py-2 px-4 w-full">Đăng nhập</button>
+    </form>
+  </div>
 </div>
 {% endblock %}
