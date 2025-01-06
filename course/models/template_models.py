@@ -22,5 +22,5 @@ class LessonTemplate(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Mẫu khóa học"
-        verbose_name_plural = "Các mẫu khóa học"
+        verbose_name = "Mẫu bài học"
+        verbose_name_plural = "Các mẫu bài học"
