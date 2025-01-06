@@ -179,8 +179,10 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
     },
-    # "site_icon": "base/images/favicon.ico",
-    # "site_logo": "base/images/site-logo.png",
+    "site_title": "Admin",
+    "site_brand": "Tra cứu lái xe",
+    "site_icon": "base/images/favicon.ico",
+    "site_logo": "base/images/site-logo.png",
 }
 
 TAILWIND_APP_NAME = "theme"
