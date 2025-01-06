@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
+
+from reporter.models import Report
 
 from .license_models import DriverLicense, License
 
@@ -15,6 +18,7 @@ class Course(models.Model):
     exam_date = models.DateField(blank=True, verbose_name="Ngày thi")
     graduation_date = models.DateField(blank=True, verbose_name="Ngày tốt nghiệp")
     license_fk = models.ForeignKey(License, on_delete=models.SET_NULL, null=True, verbose_name="Loại bằng")
+    reports = GenericRelation(Report)
 
     def __str__(self):
         return self.name
