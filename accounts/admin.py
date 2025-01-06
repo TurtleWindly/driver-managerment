@@ -7,11 +7,13 @@ from .models import UserProfile
 # Register your models here.
 admin.site.unregister(User)
 
+
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
     verbose_name_plural = "Hồ sơ người dùng"
     fk_name = "user"
+
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
