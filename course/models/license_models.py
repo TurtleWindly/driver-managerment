@@ -21,19 +21,22 @@ class DriverLicense(models.Model):
     license_fk = models.ForeignKey(
         License, on_delete=models.SET_NULL, null=True, verbose_name="Bằng"
     )
+    course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, verbose_name="Lớp đăng ký")
     is_active = models.BooleanField(default=False, verbose_name="Kích hoạt")
     theory_ok = models.BooleanField(default=False, verbose_name="Hoàn thành lý thuyết")
     pratice_ok = models.BooleanField(default=False, verbose_name="Hoàn thành thực hành")
     is_qualified = models.BooleanField(default=False, verbose_name="Đã đạt")
     is_graduation = models.BooleanField(default=False, verbose_name="Đã tốt nghiệp")
     # Money info
-    tuition = models.PositiveIntegerField(blank=True, verbose_name="Học phí")
+    tuition = models.PositiveIntegerField(default=0, blank=True, verbose_name="Học phí")
     tuition_paid = models.PositiveIntegerField(
-        blank=True, verbose_name="Học phí đã đóng"
+        default=0, blank=True, verbose_name="Học phí đã đóng"
     )
-    exam_tuition = models.PositiveIntegerField(blank=True, verbose_name="Phí kiểm tra")
+    exam_tuition = models.PositiveIntegerField(
+        default=0, blank=True, verbose_name="Phí kiểm tra"
+    )
     exam_tuition_paid = models.PositiveIntegerField(
-        blank=True, verbose_name="Phí kiểm tra đã đóng"
+        default=0, blank=True, verbose_name="Phí kiểm tra đã đóng"
     )
     exam_tuition_note = models.CharField(
         max_length=50, blank=True, verbose_name="Ghi chú phí kiểm tra"
@@ -46,7 +49,9 @@ class DriverLicense(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["user", "license_fk"], name="unique_driver_license")
+            models.UniqueConstraint(
+                fields=["user", "license_fk"], name="unique_driver_license"
+            )
         ]
         verbose_name = "Bằng lái xe"
         verbose_name_plural = "Bằng lái xe"

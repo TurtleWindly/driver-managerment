@@ -12,12 +12,6 @@ class Course(models.Model):
     teachers = models.ManyToManyField(
         User, related_name="teaching_courses", blank=True, verbose_name="Giáo viên"
     )
-    students = models.ManyToManyField(
-        DriverLicense,
-        related_name="enrolled_courses",
-        blank=True,
-        verbose_name="Học viên",
-    )
     exam_date = models.DateField(blank=True, verbose_name="Ngày thi")
     graduation_date = models.DateField(blank=True, verbose_name="Ngày tốt nghiệp")
     license_fk = models.ForeignKey(
