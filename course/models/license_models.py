@@ -21,10 +21,14 @@ class DriverLicense(models.Model):
     license_fk = models.ForeignKey(
         License, on_delete=models.SET_NULL, null=True, verbose_name="Bằng"
     )
-    course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, verbose_name="Lớp đăng ký")
+    course = models.ForeignKey(
+        "Course", on_delete=models.SET_NULL, null=True, verbose_name="Lớp đăng ký"
+    )
     is_active = models.BooleanField(default=False, verbose_name="Kích hoạt")
     theory_ok = models.BooleanField(default=False, verbose_name="Hoàn thành lý thuyết")
-    pratice_ok = models.BooleanField(default=False, verbose_name="Hoàn thành thực hành")
+    practice_ok = models.BooleanField(
+        default=False, verbose_name="Hoàn thành thực hành"
+    )
     is_qualified = models.BooleanField(default=False, verbose_name="Đã đạt")
     is_graduation = models.BooleanField(default=False, verbose_name="Đã tốt nghiệp")
     # Money info
@@ -46,6 +50,10 @@ class DriverLicense(models.Model):
 
     def __str__(self):
         return f"{self.user.username}-{self.license_fk.name}"
+
+    def save(self, *args, **kwargs):
+        # TODO: Check qualified
+        super(DriverLicense, self).save(*args, **kwargs)
 
     class Meta:
         constraints = [

@@ -12,8 +12,8 @@ class Course(models.Model):
     teachers = models.ManyToManyField(
         User, related_name="teaching_courses", blank=True, verbose_name="Giáo viên"
     )
-    exam_date = models.DateField(blank=True, verbose_name="Ngày thi")
-    graduation_date = models.DateField(blank=True, verbose_name="Ngày tốt nghiệp")
+    exam_date = models.DateField(blank=True, null=True, verbose_name="Ngày thi")
+    graduation_date = models.DateField(blank=True, null=True, verbose_name="Ngày tốt nghiệp")
     license_fk = models.ForeignKey(
         License, on_delete=models.SET_NULL, null=True, verbose_name="Loại bằng"
     )
@@ -49,6 +49,9 @@ class LessonAttend(models.Model):
         DriverLicense, on_delete=models.CASCADE, verbose_name="Học viên"
     )
     present = models.BooleanField(default=False, verbose_name="Hiện diện")
+
+    def __str__(self):
+        return f"{self.lesson.name}: " + "Có mặt" if self.present else "Vắng"
 
     class Meta:
         constraints = [
