@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from base.utils import vn_currency
 
-from .forms import CourseForm
+
+from .forms import CourseForm, DriverLicenseForm
 from .models import (
     License,
     DriverLicense,
@@ -39,6 +40,7 @@ class LicenseAdmin(admin.ModelAdmin):
 
 @admin.register(DriverLicense)
 class DriverLicenseAdmin(admin.ModelAdmin):
+    form = DriverLicenseForm
     list_display = [
         "user",
         "create_date",
