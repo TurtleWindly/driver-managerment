@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class License(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Tên bằng")
+    name = models.CharField(max_length=50, unique=True, verbose_name="Tên bằng")
     tuition = models.PositiveIntegerField(default=1000, verbose_name="Học phí")
 
     def __str__(self):
@@ -17,11 +17,11 @@ class License(models.Model):
 class DriverLicense(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Học viên")
     create_date = models.DateField(auto_now_add=True, verbose_name="Ngày tạo")
-    is_active = models.BooleanField(default=False, verbose_name="Kích hoạt")
     # Info
     license_fk = models.ForeignKey(
         License, on_delete=models.SET_NULL, null=True, verbose_name="Bằng"
     )
+    is_active = models.BooleanField(default=False, verbose_name="Kích hoạt")
     theory_ok = models.BooleanField(default=False, verbose_name="Hoàn thành lý thuyết")
     pratice_ok = models.BooleanField(default=False, verbose_name="Hoàn thành thực hành")
     is_qualified = models.BooleanField(default=False, verbose_name="Đã đạt")
@@ -41,6 +41,12 @@ class DriverLicense(models.Model):
     a1_note = models.CharField(max_length=50, blank=True, verbose_name="Ghi chú A1")
     note = models.TextField(blank=True)
 
+    def __str__(self):
+        return f"{self.user.username}-{self.license_fk.name}"
+
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "license_fk"], name="unique_driver_license")
+        ]
         verbose_name = "Bằng lái xe"
         verbose_name_plural = "Bằng lái xe"
