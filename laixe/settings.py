@@ -184,6 +184,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Tra cứu lái xe",
     "site_icon": "base/images/favicon.ico",
     "site_logo": "base/images/site-logo.png",
+    "order_with_respect_to": ["reporter.reportcat", "reporter.report"],
 }
 
 # Tailwind
