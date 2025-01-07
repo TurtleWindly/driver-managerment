@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from base.utils import vn_currency
 
+from .forms import CourseForm
 from .models import (
     License,
     DriverLicense,
@@ -16,6 +17,17 @@ from .models import (
 # Register your models here.
 
 
+class LessonAttendInline(admin.TabularInline):
+    model = LessonAttend
+    extra = 1
+
+
+class LessonInline(admin.StackedInline):
+    model = Lesson
+    extra = 1
+    show_change_link = True
+
+
 @admin.register(License)
 class LicenseAdmin(admin.ModelAdmin):
     list_display = ["name", "formated_tuition"]
@@ -27,17 +39,31 @@ class LicenseAdmin(admin.ModelAdmin):
 
 @admin.register(DriverLicense)
 class DriverLicenseAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        "user",
+        "create_date",
+        "license_fk",
+        "is_active",
+        "is_qualified",
+        "is_graduation",
+    ]
+    list_filter = ["create_date", "license_fk", "is_active"]
+    search_fields = ["user__username"]
 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    pass
+    form = CourseForm
+    inlines = [
+        LessonInline,
+    ]
 
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    pass
+    inlines = [
+        LessonAttendInline,
+    ]
 
 
 @admin.register(LessonAttend)
