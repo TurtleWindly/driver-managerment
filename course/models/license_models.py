@@ -22,7 +22,11 @@ class DriverLicense(models.Model):
         License, on_delete=models.SET_NULL, null=True, verbose_name="Bằng"
     )
     course = models.ForeignKey(
-        "Course", on_delete=models.SET_NULL, null=True, verbose_name="Lớp đăng ký"
+        "Course",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Lớp đăng ký",
     )
     is_active = models.BooleanField(default=False, verbose_name="Kích hoạt")
     theory_ok = models.BooleanField(default=False, verbose_name="Hoàn thành lý thuyết")
