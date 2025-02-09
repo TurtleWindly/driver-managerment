@@ -12,7 +12,7 @@ class UserProfile(models.Model):
         ("M", "Nam"),
         ("F", "Nữ"),
     )
-    user = AutoOneToOneField(User, on_delete=models.CASCADE)
+    user = AutoOneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     cccd = models.CharField(
         max_length=12,
         validators=[
