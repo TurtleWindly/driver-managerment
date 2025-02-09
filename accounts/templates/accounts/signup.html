@@ -1,0 +1,106 @@
+{% extends 'accounts/base.html' %} {% load crispy_forms_tags debug_tags tailwind_filters %}
+{% block content %}
+  <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-screen flex items-center justify-center">
+    <div class="max-w-lg mx-auto bg-white rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
+      <form method="post" class="w-full flex flex-col gap-4">
+        {% csrf_token %}
+        {% comment %} {% crispy form %} {% endcomment %}
+        <div id="div-{{ form.cccd.auto_id }}">
+          <label for="{{ form.cccd.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">CCCD <span class="text-rose-900">*</span></label>
+          <input type="text" name="{{ form.cccd.name }}" maxlength="12" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.cccd.auto_id }}" value="{{ form.cccd.value|default_if_none:"" }}" />
+          {% for error in form.cccd.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% comment %}Họ và tên{% endcomment %}
+        <div class="flex justify-between space-x-4">
+          <div id="div-{{ form.last_name.auto_id }}">
+            <label for="{{ form.last_name.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Họ <span class="text-rose-900">*</span></label>
+            <input type="text" name="{{ form.last_name.name }}" maxlength="50" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.last_name.auto_id }}" value="{{ form.last_name.value|default_if_none:"" }}" />
+            {% for error in form.last_name.errors %}
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+            {% endfor %}
+          </div>
+          <div id="div-{{ form.first_name.auto_id }}">
+            <label for="{{ form.first_name.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Tên <span class="text-rose-900">*</span></label>
+            <input type="text" name="{{ form.first_name.name }}" maxlength="50" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.first_name.auto_id }}" value="{{ form.first_name.value|default_if_none:"" }}" />
+            {% for error in form.first_name.errors %}
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+            {% endfor %}
+          </div>
+        </div>
+        {% comment %}SĐT và email{% endcomment %}
+        <div class="flex justify-between space-x-4">
+          <div id="div-{{ form.phone.auto_id }}">
+            <label for="{{ form.phone.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Số điện thoại <span class="text-rose-900">*</span></label>
+            <input type="text" name="{{ form.phone.name }}" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.phone.auto_id }}" value="{{ form.phone.value|default_if_none:"" }}" />
+            {% for error in form.phone.errors %}
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+            {% endfor %}
+          </div>
+          <div id="div-{{ form.email.auto_id }}">
+            <label for="{{ form.email.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Email <span class="text-rose-900">*</span></label>
+            <input type="text" name="{{ form.email.name }}" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.email.auto_id }}" value="{{ form.email.value|default_if_none:"" }}" />
+            {% for error in form.email.errors %}
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+            {% endfor %}
+          </div>
+        </div>
+        {% comment %} dob {% endcomment %}
+        <div id="div-{{ form.dob.auto_id }}">
+          <label for="{{ form.dob.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Ngày sinh <span class="text-rose-900">*</span></label>
+          <input type="text" name="{{ form.dob.name }}" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.dob.auto_id }}" value="{{ form.dob.value|default_if_none:"" }}" />
+          {% for error in form.dob.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% comment %} Gender {% endcomment %}
+        <div id="div-{{ form.gender.auto_id }}">
+          <label for="{{ form.gender.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Giới tính <span class="text-rose-900">*</span></label>
+          <div class="w-1/2 flex items-center justify-center">
+            {% for choice in form.gender %}
+            <div class="w-full">
+              <div class="flex space-x-4">
+                <input class="h-5 w-1/3" type="radio" name="{{ choice.data.name }}" value="{{ choice.data.value }}" id="{{ choice.attrs.id }}">
+                <label class="block ms-2 text-base font-bold text-gray-700">
+                  {{ choice.data.label }}
+                </label>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% for error in form.gender.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% comment %} License choose {% endcomment %}
+        <div id="div-{{ form.license_fk.auto_id }}" class="w-full">
+          <label for="{{ form.license_fk.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Chọn bằng lái xe <span class="text-rose-900">*</span></label>
+          <div class="relative">
+            <select class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer" name="{{ form.license_fk.name }}">
+              {% for license in form.license_fk %}
+                <option value="{{ license.data.value }}">{{ license.data.label }}</option>
+              {% endfor %}
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+            </svg>
+          </div>
+          {% for error in form.license_fk.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% comment %} password {% endcomment %}
+        <div id="div-{{ form.password.auto_id }}">
+          <label for="{{ form.password.auto_id }}" class="block text-gray-700 text-sm font-bold mb-2">Mật khẩu <span class="text-rose-900">*</span></label>
+          <input type="password" name="{{ form.password.name }}" class="textinput bg-white border-gray-300 focus:outline-none block appearance-none py-2 leading-normal w-full text-gray-700 px-4 rounded-lg border" required="" id="{{ form.password.auto_id }}" value="{{ form.password.value|default_if_none:"" }}" />
+          {% for error in form.password.errors %}
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% comment %} Submit button {% endcomment %}
+        <input type="submit" value="Đăng ký" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" />
+      </form>
+    </div>
+  </div>
+{% endblock %}
